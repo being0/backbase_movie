@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+
+  cassendra:
+    container_name: movie_challenge_cassendra
+    build: cassendra/
+    ports:
+        - "7000:7000"
+        - "9042:9042"
+    volumes:
+      - ~/apps/cassandra:/var/lib/cassandra
+    environment:
+      - CASSANDRA_CLUSTER_NAME=moviedb
+
+#  keycloak:
+#    image: jboss/keycloak:8.0.1
+#    restart: on-failure
+#    command:
+#      - "-b"
+#      - "0.0.0.0"
+#      - "-Dkeycloak.migration.action=import"
+#      - "-Dkeycloak.migration.provider=singleFile"
+#      - "-Dkeycloak.migration.file=/keycloak/config/import.json"
+#      - "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING"
+#    volumes:
+#      - ./keycloak/config:/keycloak/config/
+#    environment:
+#      - KEYCLOAK_USER=admin
+#      - KEYCLOAK_PASSWORD=password
+#      - DB_VENDOR=postgres
+#      - DB_USER=admin
+#      - DB_PASSWORD=password
+#      - DB_ADDR=keycloak-db
+#      - DB_PORT=5432
+#      - DB_DATABASE=keycloakdb
+#    ports:
+#      - "8085:8080"
+#    depends_on:
+#      - keycloak-db
+#  keycloak-db:
+#    image: postgres:10
+#    environment:
+#      POSTGRES_USER: admin
+#      POSTGRES_PASSWORD: password
+#      POSTGRES_DB: keycloakdb
+#    volumes:
+#      - pgdata:/var/lib/postgresql/data
+#
+#volumes:
+#  pgdata:
+#    driver: local
