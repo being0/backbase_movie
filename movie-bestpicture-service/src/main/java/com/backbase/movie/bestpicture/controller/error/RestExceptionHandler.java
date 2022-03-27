@@ -17,14 +17,14 @@ import java.io.IOException;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({MovieNotFoundException.class})
-    public ResponseEntity<ErrorTo> handleGameNotFoundException(MovieNotFoundException e, HttpServletResponse response) throws IOException {
+    public ResponseEntity<ErrorTo> handleGameNotFoundException(MovieNotFoundException e, HttpServletResponse response) {
         log.debug(e.getMessage());
 
         return new ResponseEntity<>(new ErrorTo(e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler({ConstraintViolationException.class})
-    public ResponseEntity<ErrorTo> handleConstraintViolationException(ConstraintViolationException e, HttpServletResponse response) throws IOException {
+    public ResponseEntity<ErrorTo> handleConstraintViolationException(ConstraintViolationException e, HttpServletResponse response) {
         log.debug(e.getMessage());
 
         return new ResponseEntity<>(new ErrorTo(e.getMessage()), HttpStatus.BAD_REQUEST);

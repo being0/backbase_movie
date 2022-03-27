@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8070
 
 spring:
   # Resource server configurations
@@ -17,17 +17,16 @@ spring:
     serialization:
       write-dates-as-timestamps: true
 
-  jpa:
-    database: postgresql
+  data:
+    cassandra:
+      keyspace-name: ratedb
+      contact-points: 127.0.0.1
+      local-datacenter: datacenter1
 
-  datasource:
-    url: jdbc:postgresql://${db_ip:localhost}:${db_port:5432}/${db_name:bestpicture_db}
-    username: ${db_username:root}
-    password: ${db_password:root}
 
 management:
   server:
-    port: 8081
+    port: 8071
   endpoints:
     web:
       exposure:

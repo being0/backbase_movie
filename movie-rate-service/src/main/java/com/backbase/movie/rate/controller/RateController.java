@@ -1,13 +1,15 @@
 package com.backbase.movie.rate.controller;
 
-import com.backbase.movie.bestpicture.service.BestPictureService;
-import com.backbase.movie.bestpicture.service.MovieNotFoundException;
-import com.backbase.movie.bestpicture.to.BestPictureNomineeTo;
+import com.backbase.movie.rate.service.RateNotFoundException;
+import com.backbase.movie.rate.service.RateService;
+import com.backbase.movie.rate.to.RateTo;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,16 +17,28 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1, 03/25/2022
  */
 @RestController
-@RequestMapping(value = "/movies/{:id}/rate")
+@RequestMapping(value = "/movies/{id}/rate")
 @AllArgsConstructor
 public class RateController {
 
-    private final BestPictureService bestPictureService;
+    private final RateService rateService;
 
     @PostMapping
-    public BestPictureNomineeTo getBestPictureMovieByTitle(@RequestParam("title") String title) throws MovieNotFoundException {
+    public RateTo postRate(@PathVariable("id") String movieId, @RequestBody RateTo rateTo) {
 
-        return bestPictureService.getBestPictureMovieByTitle(title);
+        return rateService.postRate(movieId, rateTo);
+    }
+
+    @GetMapping
+    public RateTo getRate(@PathVariable("id") String movieId) throws RateNotFoundException {
+
+        return rateService.getRate(movieId);
+    }
+
+    @DeleteMapping
+    public void deleteRate(@PathVariable("id") String movieId) {
+
+        rateService.deleteRate(movieId);
     }
 
 }
