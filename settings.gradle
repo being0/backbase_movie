@@ -1,3 +1,4 @@
 rootProject.name = 'backbase-movie-challenge'
 
-include 'movie-meta-service'
+include 'movie-bestpicture-service'
+include 'movie-rate-service'

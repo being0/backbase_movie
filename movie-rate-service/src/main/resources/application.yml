@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+spring:
+  # Resource server configurations
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:8085/auth/realms/spring-security-example
+#          jwk-set-uri: http://localhost:8085/auth/realms/spring-security-example/protocol/openid-connect/certs
+
+  jackson:
+    default-property-inclusion: NON_NULL
+    property-naming-strategy: SNAKE_CASE
+    serialization.INDENT_OUTPUT: false
+    serialization:
+      write-dates-as-timestamps: true
+
+  jpa:
+    database: postgresql
+
+  datasource:
+    url: jdbc:postgresql://${db_ip:localhost}:${db_port:5432}/${db_name:bestpicture_db}
+    username: ${db_username:root}
+    password: ${db_password:root}
+
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
