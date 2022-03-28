@@ -21,7 +21,7 @@ spring:
     database: postgresql
 
   datasource:
-    url: jdbc:postgresql://${db_ip:localhost}:${db_port:5432}/${db_name:bestpicture_db}
+    url: jdbc:postgresql://${db_ip:localhost}:${db_port:5432}/${db_name:bestpicturdb}
     username: ${db_username:root}
     password: ${db_password:root}
 
