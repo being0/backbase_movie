@@ -1,12 +1,13 @@
-package com.backbase.movie.rate.service;
+package com.backbase.movie.toprated.service;
 
-import com.backbase.movie.rate.service.mapper.RateMapper;
-import com.backbase.movie.rate.service.model.Rate;
-import com.backbase.movie.rate.service.model.RateKey;
-import com.backbase.movie.rate.service.repository.RateRepository;
-import com.backbase.movie.rate.to.RateTo;
+import com.backbase.movie.toprated.service.mapper.RateMapper;
+import com.backbase.movie.toprated.service.model.Rate;
+import com.backbase.movie.toprated.service.model.RateKey;
+import com.backbase.movie.toprated.service.repository.RateRepository;
+import com.backbase.movie.toprated.to.RateTo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -75,5 +76,11 @@ public class DefaultRateService implements RateService {
     @Override
     public void deleteRate(String movieId) {
         rateRepository.deleteById(new RateKey("121", movieId));
+    }
+
+    @KafkaListener(topics = "movie_rate_topic", groupId = "group1")
+    public void consume(com.backbase.movie.rate.to.RateTo rateTo)
+    {
+        log.info("User created {}", rateTo);
     }
 }

@@ -1,5 +1,5 @@
 server:
-  port: 8070
+  port: 8060
 
 spring:
   # Resource server configurations
@@ -24,15 +24,16 @@ spring:
       local-datacenter: datacenter1
 
   kafka:
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-
-
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: group1
+      properties:
+        spring.json.trusted.packages: "*"
 
 management:
   server:
-    port: 8071
+    port: 8061
   endpoints:
     web:
       exposure:

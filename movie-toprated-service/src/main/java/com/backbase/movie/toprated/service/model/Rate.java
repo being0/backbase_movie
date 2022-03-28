@@ -1,4 +1,4 @@
-package com.backbase.movie.rate.service.model;
+package com.backbase.movie.toprated.service.model;
 
 import lombok.Data;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;

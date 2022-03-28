@@ -5,7 +5,7 @@ plugins {
 	id 'java'
 }
 
-group = 'com.backbase.movie.toprated'
+group = 'com.backbase.movie.rate'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -25,6 +25,7 @@ ext {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-cassandra'
 //	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
