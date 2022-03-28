@@ -1,6 +1,6 @@
 CREATE KEYSPACE ratedb WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
-CREATE TABLE ratedb.rate
+CREATE TABLE ratedb.movie_rate
 (
     user_id  varchar,
     movie_id varchar,
