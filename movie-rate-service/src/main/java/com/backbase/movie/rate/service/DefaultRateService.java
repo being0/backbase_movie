@@ -1,19 +1,15 @@
 package com.backbase.movie.rate.service;
 
-import com.backbase.movie.rate.service.event.AbstractRateEvent;
-import com.backbase.movie.rate.service.event.RateCreateEvent;
+import com.backbase.movie.rate.service.event.RateEvent;
 import com.backbase.movie.rate.service.event.RateEventPublisher;
-import com.backbase.movie.rate.service.event.RateUpdateEvent;
-import com.backbase.movie.rate.service.mapper.RateMapper;
-import com.backbase.movie.rate.service.model.Rate;
 import com.backbase.movie.rate.service.model.RateKey;
+import com.backbase.movie.rate.service.model.UserRate;
 import com.backbase.movie.rate.service.repository.RateRepository;
 import com.backbase.movie.rate.to.RateTo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -26,8 +22,7 @@ import java.util.Optional;
 public class DefaultRateService implements RateService {
 
     private final RateRepository rateRepository;
-    private final RateMapper rateMapper;
-    private final RateEventPublisher<AbstractRateEvent> rateEventPublisher;
+    private final RateEventPublisher rateEventPublisher;
     private final JwtHolder jwtHolder;
 
     /**
@@ -42,21 +37,19 @@ public class DefaultRateService implements RateService {
         String userId = extractUserId();
 
         // Prepare rate to save
-        Rate rate = rateMapper.mapToDomain(rateTo);
-        rate.setKey(new RateKey(userId, movieId));
-        rate.setModified(LocalDateTime.now());
+        UserRate userRate = UserRate.toCreate(userId, movieId, rateTo.getRate());
 
         // Get old rate to detect the type of event
-        Optional<Rate> oldRateOpt = rateRepository.findById(new RateKey(userId, movieId));
+        Optional<UserRate> prevRateOpt = rateRepository.findById(new RateKey(userId, movieId));
 
         // Save rate object
-        rateRepository.save(rate);
+        rateRepository.save(userRate);
 
         // Publish event
-        if (oldRateOpt.isPresent()) {
-            rateEventPublisher.publish(new RateUpdateEvent(userId, movieId, rate.getRate(), oldRateOpt.get().getRate()));
+        if (prevRateOpt.isPresent()) {
+            rateEventPublisher.publish(RateEvent.updateEvent(userId, movieId, userRate.getRate(), prevRateOpt.get().getRate()));
         } else {
-            rateEventPublisher.publish(new RateCreateEvent(userId, movieId, rate.getRate()));
+            rateEventPublisher.publish(RateEvent.createEvent(userId, movieId, userRate.getRate()));
         }
 
         return rateTo;
@@ -74,11 +67,11 @@ public class DefaultRateService implements RateService {
         String userId = extractUserId();
 
         // Find rate on DB
-        Optional<Rate> rateOpt = rateRepository.findById(new RateKey(userId, movieId));
+        Optional<UserRate> rateOpt = rateRepository.findById(new RateKey(userId, movieId));
 
         if (rateOpt.isEmpty()) throw new RateNotFoundException("There is not rate for movieId " + movieId);
 
-        return rateMapper.mapToDto(rateOpt.get());
+        return new RateTo(rateOpt.get().getRate());
     }
 
     /**
@@ -90,13 +83,13 @@ public class DefaultRateService implements RateService {
     public void deleteRate(String movieId) {
         String userId = extractUserId();
 
-        // Get old rate
-        Optional<Rate> oldRateOpt = rateRepository.findById(new RateKey(userId, movieId));
+        // Get previous rate
+        Optional<UserRate> prevRateOpt = rateRepository.findById(new RateKey(userId, movieId));
 
         // Publish event
-        if (oldRateOpt.isPresent()) {
+        if (prevRateOpt.isPresent()) {
             rateRepository.deleteById(new RateKey(userId, movieId));
-            rateEventPublisher.publish(new RateCreateEvent(userId, movieId, oldRateOpt.get().getRate()));
+            rateEventPublisher.publish(RateEvent.deleteEvent(userId, movieId, prevRateOpt.get().getRate()));
         }
     }
 

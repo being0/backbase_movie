@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1, 03/25/2022
  */
 @RestController
-@RequestMapping(value = "/movies/{id}/rate")
+@RequestMapping(value = "/movies/{id}/users/rate")
 @AllArgsConstructor
 public class RateController {
 

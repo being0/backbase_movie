@@ -1,10 +1,8 @@
 package com.backbase.movie.toprated.service;
 
-import com.backbase.movie.toprated.to.RateTo;
+import com.backbase.movie.toprated.to.CollectionResult;
+import com.backbase.movie.toprated.to.MovieRateTo;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 /**
@@ -14,9 +12,5 @@ import javax.validation.constraints.Size;
 @Validated
 public interface RateService {
 
-    RateTo postRate(@NotNull @Size(min = 1, max = 20) String movieId, RateTo rateTo);
-
-    RateTo getRate(@NotNull @Size(min = 1, max = 20) String movieId) throws RateNotFoundException;
-
-    void deleteRate(@NotNull @Size(min = 1, max = 20) String movieId);
+    CollectionResult<MovieRateTo> getTop10RatedMovies();
 }

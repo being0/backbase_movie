@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1, 03/25/2022
  */
 @RestController
-@RequestMapping(value = "/movies/bestpicture")
+@RequestMapping(value = "/movies/bestpictures")
 @AllArgsConstructor
 public class BestPictureController {
 

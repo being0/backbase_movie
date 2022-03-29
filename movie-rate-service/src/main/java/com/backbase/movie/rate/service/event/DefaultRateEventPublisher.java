@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class DefaultRateEventPublisher<T extends AbstractRateEvent> implements RateEventPublisher<T> {
+public class DefaultRateEventPublisher implements RateEventPublisher {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
-    public void publish(T rateEvent) {
+    public void publish(RateEvent rateEvent) {
         log.debug("Publishing rate {}", rateEvent);
 
         // TODO could event sourcing be a solution instead of this DB/event model?
