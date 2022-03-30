@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 /**
  * @author <a href="mailto:raliakbari@gmail.com">Reza Aliakbari</a>
  * @version 1, 03/29/2022
@@ -17,21 +19,30 @@ import org.springframework.stereotype.Component;
 public class UserRateMessageConsumer {
     private final MovieRateRepository movieRateRepository;
 
-    @KafkaListener(topics = "movie_rate_topic", groupId = "group1")
+    @KafkaListener(topics = "#{'${movie-rate-topic}'}", groupId = "#{'${spring.kafka.consumer.group-id}'}")
     public void consume(RateEvent rateEvent) {
         log.debug("Rate event {}", rateEvent);
 
+        int updated;
         switch (rateEvent.getType()) {
             case create:
-                movieRateRepository.updateByNewRate(rateEvent.getMovieId(), Float.valueOf(rateEvent.getRate()));
+                updated = movieRateRepository.updateByNewRate(rateEvent.getMovieId(), Float.valueOf(rateEvent.getRate()), LocalDateTime.now());
                 break;
             case update:
+                updated = movieRateRepository.updateByDiffRate(rateEvent.getMovieId(),
+                        (float) (rateEvent.getRate() - rateEvent.getPrevRate()), LocalDateTime.now());
                 break;
             case delete:
+                updated = movieRateRepository.updateDeleteRate(rateEvent.getMovieId(),
+                        Float.valueOf(rateEvent.getPrevRate()), LocalDateTime.now());
                 break;
             default:
+                updated = 0;
                 log.error("Uknown event {}", rateEvent);
+                break;
         }
+
+        if (updated == 0) log.error("Can't update movie rate for {}", rateEvent);
     }
 
 }

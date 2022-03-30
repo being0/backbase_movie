@@ -26,6 +26,9 @@ spring:
       properties:
         spring.json.trusted.packages: "*"
 
+movie-rate-topic: movie_rate_topic
+refresh-top10-view-interval-millis: 180000
+
 management:
   server:
     port: 8061
