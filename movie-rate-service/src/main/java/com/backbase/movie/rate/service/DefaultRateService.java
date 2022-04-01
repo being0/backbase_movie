@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -24,6 +26,7 @@ public class DefaultRateService implements RateService {
     private final RateRepository rateRepository;
     private final RateEventPublisher rateEventPublisher;
     private final JwtHolder jwtHolder;
+    private final Clock clock;
 
     /**
      * Creates or updates a movie rate for user
@@ -37,7 +40,7 @@ public class DefaultRateService implements RateService {
         String userId = extractUserId();
 
         // Prepare rate to save
-        UserRate userRate = UserRate.toCreate(userId, movieId, rateTo.getRate());
+        UserRate userRate = UserRate.toCreate(userId, movieId, rateTo.getRate(), LocalDateTime.now(clock));
 
         // Get old rate to detect the type of event
         Optional<UserRate> prevRateOpt = rateRepository.findById(new RateKey(userId, movieId));

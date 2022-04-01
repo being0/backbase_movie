@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 /**
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @Slf4j
 public class UserRateMessageConsumer {
     private final MovieRateRepository movieRateRepository;
+    private final Clock clock;
 
     @KafkaListener(topics = "#{'${my.movie-rate.topic}'}", groupId = "#{'${spring.kafka.consumer.group-id}'}")
     public void consume(RateEvent rateEvent) {
@@ -26,15 +28,15 @@ public class UserRateMessageConsumer {
         int updated;
         switch (rateEvent.getType()) {
             case create:
-                updated = movieRateRepository.updateByNewRate(rateEvent.getMovieId(), Float.valueOf(rateEvent.getRate()), LocalDateTime.now());
+                updated = movieRateRepository.updateByNewRate(rateEvent.getMovieId(), Float.valueOf(rateEvent.getRate()), LocalDateTime.now(clock));
                 break;
             case update:
                 updated = movieRateRepository.updateByDiffRate(rateEvent.getMovieId(),
-                        (float) (rateEvent.getRate() - rateEvent.getPrevRate()), LocalDateTime.now());
+                        (float) (rateEvent.getRate() - rateEvent.getPrevRate()), LocalDateTime.now(clock));
                 break;
             case delete:
                 updated = movieRateRepository.updateDeleteRate(rateEvent.getMovieId(),
-                        Float.valueOf(rateEvent.getPrevRate()), LocalDateTime.now());
+                        Float.valueOf(rateEvent.getPrevRate()), LocalDateTime.now(clock));
                 break;
             default:
                 updated = 0;

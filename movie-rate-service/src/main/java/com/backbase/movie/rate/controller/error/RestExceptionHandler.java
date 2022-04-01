@@ -11,7 +11,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Path;
-import java.util.Collection;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -37,10 +36,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({Exception.class})
-    public ResponseEntity<ErrorTo> handleExcp(Exception e, HttpServletResponse response) {
-        log.debug(e.getMessage());
+    public ResponseEntity<ErrorTo> handleException(Exception e, HttpServletResponse response) {
+        log.error("", e);
 
-        return new ResponseEntity<>(new ErrorTo(e.getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorTo("An unexpected error occurred!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

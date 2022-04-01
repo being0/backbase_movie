@@ -22,6 +22,7 @@ import javax.validation.ConstraintViolationException;
 import java.nio.charset.Charset;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -138,7 +139,7 @@ class RateControllerTest {
 
         // Then
         assertEquals(HttpStatus.NO_CONTENT.value(), mvcResult.getResponse().getStatus());
-        verify(rateService, times(1)).deleteRate("abcd123");
+        verify(rateService, times(1)).deleteRate(eq("abcd123"));
     }
 
 

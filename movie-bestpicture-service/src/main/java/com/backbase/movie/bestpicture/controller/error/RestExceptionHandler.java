@@ -36,6 +36,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(new ErrorTo(message), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<ErrorTo> handleException(Exception e, HttpServletResponse response) {
+        log.error("", e);
+
+        return new ResponseEntity<>(new ErrorTo("An unexpected error occurred!"), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     private String getLastPath(Path path) {
         String pathStr = String.valueOf(path);

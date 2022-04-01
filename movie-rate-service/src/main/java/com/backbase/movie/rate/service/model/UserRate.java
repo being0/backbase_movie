@@ -19,11 +19,11 @@ public class UserRate {
     private Byte rate;
     private LocalDateTime modified;
 
-    public static UserRate toCreate(String userId, String movieId, Byte rate) {
+    public static UserRate toCreate(String userId, String movieId, Byte rate, LocalDateTime now) {
         UserRate userRate = new UserRate();
         userRate.setRate(rate);
         userRate.setKey(new RateKey(userId, movieId));
-        userRate.setModified(LocalDateTime.now());
+        userRate.setModified(now);
 
         return userRate;
     }
