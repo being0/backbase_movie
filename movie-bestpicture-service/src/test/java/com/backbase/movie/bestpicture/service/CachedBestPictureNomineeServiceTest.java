@@ -11,10 +11,10 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,8 +27,6 @@ class CachedBestPictureNomineeServiceTest {
 
     @InjectMocks
     CachedBestPictureNomineeService cachedBestPictureNomineeService;
-    @InjectMocks
-    BestPictureNomineeService bestPictureNomineeService;
 
     @Test
     void testGetBestPictureMovieByTitle() throws MovieNotFoundException {
@@ -55,17 +53,6 @@ class CachedBestPictureNomineeServiceTest {
 
         // When/Then
         assertThrows(MovieNotFoundException.class, () -> cachedBestPictureNomineeService.getBestPictureMovieByTitle("Unknown Movie!"));
-    }
-
-    @Test
-    void testGetBestPictureMovieByTitle_noTitle(){
-        // Given
-
-        // When/Then
-        Exception exception=
-                assertThrows(ConstraintViolationException.class, () -> bestPictureNomineeService.getBestPictureMovieByTitle(""));
-
-        System.out.println(exception);
     }
 
 }
