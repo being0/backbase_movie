@@ -10,7 +10,7 @@ import org.springframework.validation.annotation.Validated;
  * @version 1, 03/27/2022
  */
 @Validated
-public interface RateService {
+public interface Top10RatedMovieService {
 
     CollectionResult<MovieRateTo> getTop10RatedMovies();
 }

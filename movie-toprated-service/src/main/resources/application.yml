@@ -26,8 +26,16 @@ spring:
       properties:
         spring.json.trusted.packages: "*"
 
-movie-rate-topic: movie_rate_topic
-refresh-top10-view-interval-millis: 180000
+my:
+  movie-rate:
+    topic: movie_rate_topic
+  top10:
+    # Refresh materialized view and cache intervals, for test reasons I keep this times low, but they should be higher like 3m and 4m
+    materialized-view:
+      refresh-interval-ms: 10000
+      keep-lock: 8s
+    cache:
+      refresh-interval-ms: 20000
 
 management:
   server:

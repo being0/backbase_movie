@@ -1,6 +1,8 @@
 package com.backbase.movie.toprated.to;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -9,6 +11,8 @@ import java.util.List;
  * @version 1, 03/29/2022
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CollectionResult<T> {
 
     private List<T> result;

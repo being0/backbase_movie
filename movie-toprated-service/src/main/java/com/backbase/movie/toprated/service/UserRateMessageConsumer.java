@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class UserRateMessageConsumer {
     private final MovieRateRepository movieRateRepository;
 
-    @KafkaListener(topics = "#{'${movie-rate-topic}'}", groupId = "#{'${spring.kafka.consumer.group-id}'}")
+    @KafkaListener(topics = "#{'${my.movie-rate.topic}'}", groupId = "#{'${spring.kafka.consumer.group-id}'}")
     public void consume(RateEvent rateEvent) {
         log.debug("Rate event {}", rateEvent);
 

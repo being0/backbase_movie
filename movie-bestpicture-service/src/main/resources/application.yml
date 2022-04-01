@@ -2,7 +2,6 @@ server:
   port: 8080
 
 spring:
-
   jackson:
     default-property-inclusion: NON_NULL
     property-naming-strategy: SNAKE_CASE
@@ -17,6 +16,11 @@ spring:
     url: jdbc:postgresql://${db_ip:localhost}:${db_port:5432}/${db_name:bestpicturedb}
     username: ${db_username:root}
     password: ${db_password:root}
+
+my:
+  best-picture-cache:
+    # Normally it should be higher but for test it is considered low
+    refresh-interval: 10000
 
 management:
   server:

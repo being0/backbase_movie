@@ -20,8 +20,6 @@ public class Top10RatedMovie {
     private String id;
     private String title;
     private Float rate;
-    @Column(name = "rate_rounded")
-    private Float rateRounded;
     @Column(name = "rate_count")
     private Long rateCount;
     @Column(name = "box_office_value")

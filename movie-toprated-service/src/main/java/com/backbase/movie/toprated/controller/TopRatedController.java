@@ -1,6 +1,6 @@
 package com.backbase.movie.toprated.controller;
 
-import com.backbase.movie.toprated.service.RateService;
+import com.backbase.movie.toprated.service.Top10RatedMovieService;
 import com.backbase.movie.toprated.to.CollectionResult;
 import com.backbase.movie.toprated.to.MovieRateTo;
 import lombok.AllArgsConstructor;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class TopRatedController {
 
-    private final RateService rateService;
+    private final Top10RatedMovieService rateService;
 
     @GetMapping("/top10")
-    public CollectionResult<MovieRateTo> getRate()  {
+    public CollectionResult<MovieRateTo> getTop10RatedMovies()  {
 
         return rateService.getTop10RatedMovies();
     }
