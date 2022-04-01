@@ -31,6 +31,7 @@ public class CachedBestPictureNomineeService implements BestPictureNomineeServic
 
     private final BestPictureNomineeRepository bestPictureNomineeRepository;
     private final BestPictureMapper bestPictureMapper;
+
     /**
      * Cache(map) of movie titles(lowercase) to BestPictureNomineeTo objects
      */

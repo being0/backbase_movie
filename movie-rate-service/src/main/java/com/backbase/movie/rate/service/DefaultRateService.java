@@ -99,7 +99,10 @@ public class DefaultRateService implements RateService {
     private String extractUserId() {
 
         // extract user id, in the security configuration JWT has been used and JWT subject is user id
-        return jwtHolder.getJwt().getSubject();
+        String userId = jwtHolder.getJwt().getSubject();
+        if (log.isDebugEnabled()) log.debug("UserId is {}", userId);
+
+        return userId;
     }
 
 }

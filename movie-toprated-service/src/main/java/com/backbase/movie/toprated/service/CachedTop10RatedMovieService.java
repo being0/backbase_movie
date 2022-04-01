@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * This service provides top 10 movies ordered by user average rates and box office value,
+ * Using an internal in-memory cache. The cache is updated periodically reading from top10_rated_movie view.
+ *
  * @author <a href="mailto:raliakbari@gmail.com">Reza Aliakbari</a>
  * @version 1, 03/27/2022
  */
@@ -42,7 +45,10 @@ public class CachedTop10RatedMovieService implements Top10RatedMovieService {
         return top10CachedMovies;
     }
 
-    @Scheduled(fixedRateString = "${my.top10.cache.refresh-interval-ms}", initialDelay = 6000)
+    /**
+     * This method update in memory cache, reading data from top10_rated_movie materialized view.
+     */
+    @Scheduled(fixedRateString = "${my.top10.cache.refresh-interval-ms}", initialDelay = 2000)
     public void updateCache() {
         // Load top 10
         long t1 = System.currentTimeMillis();

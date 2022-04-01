@@ -44,7 +44,7 @@ class CachedBestPictureNomineeServiceTest {
     }
 
     @Test
-    void testGetBestPictureMovieByTitle_MovieNotFoundException(){
+    void testGetBestPictureMovieByTitle_MovieNotFoundException() {
         // Given
         var nominee1 = new BestPictureNominee("123", "12 Angry men", "1957", "good to see", true);
         var nominee2 = new BestPictureNominee("456", "American Beauty", "1999", "Not an American dream!", false);

@@ -1,6 +1,8 @@
 package com.backbase.movie.toprated.service.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,8 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "top10_rated_movie")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Top10RatedMovie {
     @Id
     private String id;
