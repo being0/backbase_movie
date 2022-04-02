@@ -1,0 +1,9 @@
+apply plugin: "org.sonarqube"
+
+sonarqube {
+    properties {
+        // Insert other SonarQube properties here
+        property 'sonar.projectName', 'Movie Challenge'
+        property 'sonar.projectKey', 'movie-challenge'
+    }
+}
