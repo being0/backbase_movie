@@ -5,6 +5,7 @@ import com.backbase.movie.toprated.to.CollectionResult;
 import com.backbase.movie.toprated.to.MovieRateTo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/movies")
 @AllArgsConstructor
 @Slf4j
+@Profile("top10_api")
 public class TopRatedController {
 
     private final Top10RatedMovieService rateService;
