@@ -1,4 +1,4 @@
-rootProject.name = 'backbase-movie-challenge'
+rootProject.name = 'movie-challenge'
 
 include 'movie-bestpicture-service'
 include 'movie-rate-service'
