@@ -43,3 +43,5 @@ high available and high performance system using a simple setup. The materialize
     GET
     http://<host>:<port>/movies/top10
     ```
+
+colima start --mount /Users/reza.aliakbari/projects/being0/backbase_movie_challenge/docker/keycloak/config:/keycloak/config:w --mount /Users/reza.aliakbari/projects/being0/backbase_movie_challenge/docker/cassandra/scripts:/cassandra/scripts:w

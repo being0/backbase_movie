@@ -22,13 +22,16 @@ spring:
       keyspace-name: ratedb
       contact-points: 127.0.0.1
       local-datacenter: datacenter1
+      schema-action: create_if_not_exists
 
   kafka:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
-
+my:
+  movie-rate:
+    topic: movie_rate_topic
 
 management:
   server:

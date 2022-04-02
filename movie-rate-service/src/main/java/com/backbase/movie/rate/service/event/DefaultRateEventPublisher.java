@@ -2,6 +2,7 @@ package com.backbase.movie.rate.service.event;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +17,14 @@ public class DefaultRateEventPublisher implements RateEventPublisher {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
+    @Value("${my.movie-rate.topic}")
+    private String kafkaTopic;
+
     @Override
     public void publish(RateEvent rateEvent) {
         log.debug("Publishing rate {}", rateEvent);
 
         // TODO could event sourcing be a solution instead of this DB/event model?
-        kafkaTemplate.send("movie_rate_topic", rateEvent);
+        kafkaTemplate.send(kafkaTopic, rateEvent);
     }
 }
