@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @EnableAutoConfiguration
-@SpringBootTest(classes = {RateServiceApplication.class})
+@SpringBootTest
 class RateControllerTest {
 
     @Autowired

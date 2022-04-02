@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @EnableAutoConfiguration
-@SpringBootTest(classes = {TopRatedServiceApplication.class})
+@SpringBootTest
 class TopRatedControllerTest {
 
     @Autowired

@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @EnableAutoConfiguration
-@SpringBootTest(classes = {BestpictureServiceApplication.class})
+@SpringBootTest
 class BestPictureNomineeControllerTest {
 
     @Autowired
