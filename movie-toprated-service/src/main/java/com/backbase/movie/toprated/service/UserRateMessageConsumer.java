@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-@Profile("rate_message_consumer")
 public class UserRateMessageConsumer {
     private final MovieRateRepository movieRateRepository;
     private final Clock clock;

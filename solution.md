@@ -35,7 +35,7 @@ These services need **JWT token** to be included in the header.
    The materialized view and the cache will be updated periodically. Using in-memory cache helps to provide 
 high available and high performance system using a simple setup. The materialized view keeps top 10 movies ordered by average user rated and box office value.
    The movies average rates are updated by a consumer that reads user rate messages from **kafka movie_rate_topic**.
-   This consumer can be deployed separately rate_message_consumer profile.
+   This consumer can be deployed separately by different profile.
    The movie crud service has not been implemented in this challenge and the **movieratedb** DB can be updated by several different methods.
    This service is publicly accessible. 
 

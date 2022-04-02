@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/movies")
 @AllArgsConstructor
 @Slf4j
-@Profile("top10_api")
 public class TopRatedController {
 
     private final Top10RatedMovieService rateService;

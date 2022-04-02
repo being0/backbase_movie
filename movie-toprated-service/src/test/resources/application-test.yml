@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+
+  datasource:
+    url: jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1
+  flyway:
+    enabled: false
+  sql:
+    init:
+      mode: always
