@@ -1,0 +1,32 @@
+spring:
+  jackson:
+    default-property-inclusion: NON_NULL
+    property-naming-strategy: SNAKE_CASE
+    serialization.INDENT_OUTPUT: false
+    serialization:
+      write-dates-as-timestamps: true
+
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+
+  datasource:
+    url: jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1
+  flyway:
+    enabled: false
+  sql:
+    init:
+      mode: always
+
+my:
+  movie-rate:
+    topic: movie_rate_topic
+  top10:
+    # Refresh materialized view and cache intervals, for test reasons I keep this times low, but they should be higher like 3m and 4m
+    materialized-view:
+      refresh-interval-ms: 10000
+      keep-lock: 8s
+    cache:
+      refresh-interval-ms: 20000

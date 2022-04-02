@@ -11,6 +11,8 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 
 /**
+ * This component reads kafka RateEvents and create/update/delete rates in the database
+ *
  * @author <a href="mailto:raliakbari@gmail.com">Reza Aliakbari</a>
  * @version 1, 03/29/2022
  */
@@ -21,9 +23,9 @@ public class UserRateMessageConsumer {
     private final MovieRateRepository movieRateRepository;
     private final Clock clock;
 
-    @KafkaListener(topics = "#{'${my.movie-rate.topic}'}", groupId = "#{'${spring.kafka.consumer.group-id}'}")
+    @KafkaListener(topics = "#{'${my.movie-rate.topic:movie_rate_topic}'}", groupId = "#{'${spring.kafka.consumer.group-id:group1}'}")
     public void consume(RateEvent rateEvent) {
-        log.debug("Rate event {}", rateEvent);
+        if(log.isDebugEnabled()) log.debug("Rate event {}", rateEvent);
 
         int updated;
         switch (rateEvent.getType()) {

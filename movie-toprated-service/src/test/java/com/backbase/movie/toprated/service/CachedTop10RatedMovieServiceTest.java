@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -43,25 +43,5 @@ class CachedTop10RatedMovieServiceTest {
                 .id(mv.getId()).title(mv.getTitle()).build()).collect(Collectors.toUnmodifiableList()));
 
         assertEquals(top10Expected, top10);
-
-        // When cache is not yet updated the result is the same
-        var movie4 = new Top10RatedMovie("4", "Fight Club", 9.1f, 45454L, 343434L, LocalDateTime.now());
-        var updatedMovies = List.of(movie1, movie2,movie4, movie3);
-        when(top10RatedMovieRepository.findAll()).thenReturn(updatedMovies);
-        top10 = cachedTop10RatedMovieService.getTop10RatedMovies();
-
-        // Then
-        assertEquals(top10Expected, top10);
-
-
-        // When cache is updated
-        cachedTop10RatedMovieService.updateCache();
-        top10 = cachedTop10RatedMovieService.getTop10RatedMovies();
-
-        // Then
-        var top10UpdatedExpected = new CollectionResult<>(updatedMovies.stream().map(mv -> MovieRateTo.builder().rate(mv.getRate())
-                .rateCount(mv.getRateCount()).boxOfficeValue(mv.getBoxOfficeValue())
-                .id(mv.getId()).title(mv.getTitle()).build()).collect(Collectors.toUnmodifiableList()));
-        assertEquals(top10UpdatedExpected, top10);
     }
 }

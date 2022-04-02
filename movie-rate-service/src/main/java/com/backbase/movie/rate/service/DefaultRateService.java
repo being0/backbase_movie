@@ -45,10 +45,10 @@ public class DefaultRateService implements RateService {
         // Get old rate to detect the type of event
         Optional<UserRate> prevRateOpt = rateRepository.findById(new RateKey(userId, movieId));
 
-        // Save rate object
+        // Save rate object into cassandra partitioned by userId
         rateRepository.save(userRate);
 
-        // Publish event
+        // Publish event into the kafka
         if (prevRateOpt.isPresent()) {
             rateEventPublisher.publish(RateEvent.updateEvent(userId, movieId, userRate.getRate(), prevRateOpt.get().getRate()));
         } else {

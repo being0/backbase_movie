@@ -6,6 +6,8 @@ import com.backbase.movie.toprated.to.CollectionResult;
 import com.backbase.movie.toprated.to.MovieRateTo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ import java.util.stream.Collectors;
 public class CachedTop10RatedMovieService implements Top10RatedMovieService {
 
     private final Top10RatedMovieRepository top10RatedMovieRepository;
-    private CollectionResult<MovieRateTo> top10CachedMovies;
+    public static final String CACHE_TOP10 = "top10_cache";
 
     /**
      * Returns top 10 rated cached movies.
@@ -34,30 +36,27 @@ public class CachedTop10RatedMovieService implements Top10RatedMovieService {
      * @return top 10 rated movies
      */
     @Override
+    @Cacheable(CACHE_TOP10)
     public CollectionResult<MovieRateTo> getTop10RatedMovies() {
 
-        // If cache not loaded yet, load it
-        if (top10CachedMovies == null || top10CachedMovies.getResult().isEmpty()) {
-            log.warn("Cache not loaded! Loading it manually");
-            updateCache();
-        }
-
-        return top10CachedMovies;
+        return loadTop10Movies();
     }
 
     /**
-     * This method update in memory cache, reading data from top10_rated_movie materialized view.
+     * This method loads from top10_rated_movie materialized view and cache the result in memory.
+     * Note: CachePut used instead of CacheEvict, since CacheEvict will reduce the availability.
      */
     @Scheduled(fixedRateString = "${my.top10.cache.refresh-interval-ms}", initialDelay = 2000)
-    public void updateCache() {
+    @CachePut(CACHE_TOP10)
+    public CollectionResult<MovieRateTo> loadTop10Movies() {
         // Load top 10
         long t1 = System.currentTimeMillis();
         List<Top10RatedMovie> top10RatedMovies = top10RatedMovieRepository.findAll();
         log.info("Top 10 movies loaded in {}ms", System.currentTimeMillis() - t1);
         if (top10RatedMovies.size() != 10) log.warn("Size of top 10 is {}", top10RatedMovies.size());
 
-        // Update cache
-        top10CachedMovies = new CollectionResult<>(top10RatedMovies.stream().map(mv -> MovieRateTo.builder().rate(mv.getRate())
+        // return result to be cached
+        return new CollectionResult<>(top10RatedMovies.stream().map(mv -> MovieRateTo.builder().rate(mv.getRate())
                 .rateCount(mv.getRateCount()).boxOfficeValue(mv.getBoxOfficeValue())
                 .id(mv.getId()).title(mv.getTitle()).build()).collect(Collectors.toUnmodifiableList()));
     }
