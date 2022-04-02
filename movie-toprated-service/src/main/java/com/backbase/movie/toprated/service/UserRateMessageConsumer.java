@@ -31,14 +31,14 @@ public class UserRateMessageConsumer {
 
         int updated;
         switch (rateEvent.getType()) {
-            case create:
+            case CREATE:
                 updated = movieRateRepository.updateByNewRate(rateEvent.getMovieId(), Float.valueOf(rateEvent.getRate()), LocalDateTime.now(clock));
                 break;
-            case update:
+            case UPDATE:
                 updated = movieRateRepository.updateByDiffRate(rateEvent.getMovieId(),
                         (float) (rateEvent.getRate() - rateEvent.getPrevRate()), LocalDateTime.now(clock));
                 break;
-            case delete:
+            case DELETE:
                 updated = movieRateRepository.updateDeleteRate(rateEvent.getMovieId(),
                         Float.valueOf(rateEvent.getPrevRate()), LocalDateTime.now(clock));
                 break;
