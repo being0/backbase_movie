@@ -29,7 +29,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorTo> handleConstraintViolationException(ConstraintViolationException e, HttpServletResponse response) {
         log.debug(e.getMessage());
 
-        String message = e.getConstraintViolations().stream()
+        String message = e.getConstraintViolations() == null ? "" : e.getConstraintViolations().stream()
                 .map(this::constraintViolationToString)
                 .collect(Collectors.joining(", "));
 
@@ -43,7 +43,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(new ErrorTo("An unexpected error occurred!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private  String constraintViolationToString(ConstraintViolation cv) {
+    private String constraintViolationToString(ConstraintViolation cv) {
         return cv == null ? "null" : getLastPath(cv.getPropertyPath()) + ": " + cv.getMessage();
     }
 

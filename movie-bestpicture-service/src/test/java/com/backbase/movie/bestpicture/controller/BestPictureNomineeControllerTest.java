@@ -74,7 +74,7 @@ class BestPictureNomineeControllerTest {
     }
 
     @Test
-    void testGetBestPictureMovieByTitle_whenBlackTitle() throws Exception {
+    void testGetBestPictureMovieByTitle_whenBlankTitle() throws Exception {
         // When/Then
         MvcResult mvcResult = this.mockMvc.perform(get("/movies/bestpictures")
                         .param("title", "    "))
