@@ -1,6 +1,6 @@
 package com.backbase.movie.rate.controller;
 
-import com.backbase.movie.rate.RateServiceApplication;
+import com.backbase.movie.rate.service.CassandraConfig;
 import com.backbase.movie.rate.service.RateNotFoundException;
 import com.backbase.movie.rate.service.RateService;
 import com.backbase.movie.rate.to.RateTo;
@@ -9,11 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
