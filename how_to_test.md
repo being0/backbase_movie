@@ -22,7 +22,7 @@
     ```
 
    | HTTP Code                 | Explanation             |
-       | -------------             |:-----------------------------------------------:|
+   | -------------             |:-----------------------------------------------:|
    | 200 (OK)                  | Success get |
    | 404 (Not found)           | Movie is not in the list of best picture nominees     |
    | 400 (Bad Request)         | If title is not between 1 to 50 characters     |
