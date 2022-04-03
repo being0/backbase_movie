@@ -13,7 +13,7 @@ The solution is consist of three categories of API services:
 
    These services provide crud endpoints for users to rate on movies. These services should be highly available and scalable but it doesn't need strong consistency(eventual consistency is acceptable). Cassandra DB satisfy these requirements and provides high write throughput. UserId has been used as partition key. Considering future requirements, it allows to load all the user rates using the same partition. 
 After a rate is sent to this service, the rate is persisted in Cassandra for the user and a message is raised into 
-the **kafka movie_rate_topic**. The message later can be consumed by **toprated service** to enrol and calculate the average of each movie rate.
+the **kafka movie_rate_topic**. The message later can be consumed by **toprated service** to enrol and calculate the average of rates of movies.
 These services need **JWT token** to be included in the header.
 Note: It may look over engineering by adding Cassandra to the stack, however I tried to provide a 
 middle solution and reduce the technical debts, Also Cassandra mainly added because of its high availability, 
