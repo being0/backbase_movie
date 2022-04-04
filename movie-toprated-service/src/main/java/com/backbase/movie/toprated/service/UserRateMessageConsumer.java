@@ -28,6 +28,8 @@ public class UserRateMessageConsumer {
     public void consume(RateEvent rateEvent) {
         if(log.isDebugEnabled()) log.debug("Rate event {}", rateEvent);
 
+        // To optimize performance we should read in batch(like 100) and combine and calculate and then send one update query to DB
+        // For simplicity it only updates for one message.
         int updated;
         switch (rateEvent.getType()) {
             case CREATE:

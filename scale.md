@@ -13,9 +13,8 @@ The other apps use in-memory cache and they don't forward user requests to the d
 Cassandra can be scaled by adding more servers to it as we grow. The transactions have been partitioned based on userId.
 
 The database on toprated service will receive background loads from Kafka consumers.
-To reduce load on this Postgres DB we can do the following actions:
-* Batch requests and run them in batch on DB
-* Shard the DB
+To reduce load on this Postgres DB we can do the following action:
+* Combine multiple messages and calculate the rates and counts and then send one request to the DB 
 
 ### Kafka
 Kafka selected because it is high available component and can be scaled easily. It is not a bottleneck, 
