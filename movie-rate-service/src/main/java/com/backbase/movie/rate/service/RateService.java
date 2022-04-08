@@ -19,5 +19,5 @@ public interface RateService {
 
     RateTo getRate(@NotNull @Size(min = 1, max = 20) String movieId) throws RateNotFoundException;
 
-    void deleteRate(String movieId);
+    void deleteRate(@NotNull @Size(min = 1, max = 20) String movieId);
 }
