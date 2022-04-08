@@ -25,6 +25,7 @@ spring:
       group-id: group1
       properties:
         spring.json.trusted.packages: "*"
+      auto-offset-reset: earliest
 
 my:
   movie-rate:
