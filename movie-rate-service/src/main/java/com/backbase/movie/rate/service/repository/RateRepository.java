@@ -1,7 +1,7 @@
 package com.backbase.movie.rate.service.repository;
 
-import com.backbase.movie.rate.service.model.UserRate;
 import com.backbase.movie.rate.service.model.RateKey;
+import com.backbase.movie.rate.service.model.UserRate;
 import org.springframework.data.repository.CrudRepository;
 
 /**

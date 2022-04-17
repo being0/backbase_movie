@@ -1,6 +1,5 @@
 package com.backbase.movie.rate.controller;
 
-import com.backbase.movie.rate.service.CassandraConfig;
 import com.backbase.movie.rate.service.RateNotFoundException;
 import com.backbase.movie.rate.service.RateService;
 import com.backbase.movie.rate.to.RateTo;
@@ -20,13 +19,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import javax.validation.ConstraintViolationException;
-import java.nio.charset.Charset;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -47,7 +47,7 @@ class RateControllerTest {
 
     ObjectMapper om = new ObjectMapper();
 
-    public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
+    public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(APPLICATION_JSON.getType(), APPLICATION_JSON.getSubtype(), UTF_8);
 
     @Test
     public void givenNoToken_whenPostRate_thenUnauthorized() throws Exception {

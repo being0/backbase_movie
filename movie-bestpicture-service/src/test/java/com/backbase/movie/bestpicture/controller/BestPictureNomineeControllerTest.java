@@ -1,6 +1,5 @@
 package com.backbase.movie.bestpicture.controller;
 
-import com.backbase.movie.bestpicture.BestpictureServiceApplication;
 import com.backbase.movie.bestpicture.controller.error.ErrorTo;
 import com.backbase.movie.bestpicture.service.BestPictureNomineeService;
 import com.backbase.movie.bestpicture.service.MovieNotFoundException;
@@ -10,7 +9,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

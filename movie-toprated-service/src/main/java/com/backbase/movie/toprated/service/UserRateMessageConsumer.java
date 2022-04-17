@@ -4,7 +4,6 @@ import com.backbase.movie.rate.service.event.RateEvent;
 import com.backbase.movie.toprated.service.repository.MovieRateRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
